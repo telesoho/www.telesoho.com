@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Telesoho Studio — 索合工坊</title>
+    <meta
+      name="description"
+      content="索合工坊。实用的小工具，和值得拆开看的实现。"
+    />
+    <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-mode="visitor">
+    <a class="skip-link" href="#main">跳到正文</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Telesoho Studio（索合工坊）首页">
+        <svg class="brand__mark" viewBox="0 0 32 32" width="32" height="32" fill="none" aria-hidden="true">
+          <path
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8 11.5 V8 h16 v16 H8 v-3.5"
+          />
+          <path
+            stroke="#c4a574"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2 16 C5 16 6 12 9 12 S13 20 16 20 S20 12 23 12 S27 16 30 16"
+          />
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">Telesoho</span>
+          <span class="brand__studio">Studio</span>
+          <span class="brand__cn">索合工坊</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="#projects" data-nav="projects">项目</a>
+        <a href="#about" data-nav="about">关于</a>
+        <a class="external" href="https://blog.telesoho.com" target="_blank" rel="noopener noreferrer"
+          >博客 <span aria-hidden="true">↗</span></a
+        >
+        <button
+          type="button"
+          class="mode-toggle"
+          id="mode-toggle"
+          aria-pressed="false"
+          title="切换工程模式"
+        >
+          <span class="mode-toggle__code" aria-hidden="true">&lt;/&gt;</span>
+          <span class="mode-toggle__label">工程模式</span>
+        </button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <p class="eyebrow visitor-only">个人站点</p>
+        <p class="eyebrow engineering-only">工程模式 · 现场笔记</p>
+        <h1 id="hero-title">
+          <span class="visitor-only">为日常所写。<br />也为值得拆开的东西。</span>
+          <span class="engineering-only">美在<br /><em>实现</em>里。</span>
+        </h1>
+        <p class="lede visitor-only">
+          好的软件在最好的时候不被注意到——只有出问题时，才看见它的魔法。
+        </p>
+        <p class="lede engineering-only">
+          同一批作品，另一条入口。跟着方程和状态转移往下看：模型是什么、假设在哪、边界停在何处。
+        </p>
+        <p class="hero-actions">
+          <a class="text-link visitor-only" href="#projects">往下看作品 <span aria-hidden="true">↓</span></a>
+          <a class="text-link engineering-only" href="#eng-fft">看表面之下 <span aria-hidden="true">↓</span></a>
+        </p>
+
+        <div class="signature" aria-hidden="true">
+          <canvas id="shoreline" width="1200" height="120"></canvas>
+          <div class="signature__caption">
+            <span class="visitor-only">湖岸</span>
+            <span class="engineering-only">采样波形 · 256 点 · Fs = 256 Hz</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visitor: projects -->
+      <section class="section visitor-panel" id="projects" aria-labelledby="projects-title">
+        <header class="section-head">
+          <p class="eyebrow">作品</p>
+          <h2 id="projects-title">不同的练习。<br />同一种认真。</h2>
+          <p class="section-lead">从谱面到段落，从编辑器到还没做完的想法。</p>
+        </header>
+
+        <article class="project" id="guitartool">
+          <p class="project__index">03 / 谱面跟着走</p>
+          <h3>吉他兔</h3>
+          <p class="project__tagline">跟着原曲练。<br />手不用离开琴颈。</p>
+          <p>
+            普通播放器不支持精细的段落循环，翻谱又要腾出手。吉他兔按进度跳转曲谱，并让重复区间一设就用。
+          </p>
+          <p class="project__meta">浏览器 demo · 一首示范曲</p>
+          <p class="project__links">
+            <a href="http://blog.telesoho.com/guitartools/?#/5" target="_blank" rel="noopener noreferrer"
+              >打开吉他兔 <span aria-hidden="true">↗</span></a
+            >
+          </p>
+        </article>
+
+        <article class="project" id="paratool">
+          <p class="project__index">02 / 段落归位</p>
+          <h3>爬来兔</h3>
+          <p class="project__tagline">把好文章打乱。<br />再亲手排回去。</p>
+          <p>
+            富兰克林练结构感的方法：打乱段落，凭逻辑复原。看书时把值得学的章节贴进来，打乱，再排——练语感，也看清作者的思路。
+          </p>
+          <p class="project__meta">浏览器工具</p>
+          <p class="project__links">
+            <a href="http://blog.telesoho.com/paratool" target="_blank" rel="noopener noreferrer"
+              >打开爬来兔 <span aria-hidden="true">↗</span></a
+            >
+          </p>
+        </article>
+
+        <article class="project" id="paste-image">
+          <p class="project__index">01 / 截图落盘</p>
+          <h3>vscode-markdown-paste-image</h3>
+          <p class="project__tagline">粘贴截图。<br />图片进你指定的文件夹。</p>
+          <p>
+            写 Markdown 时插截图总绕路。这个 VS Code 扩展让粘贴直达约定目录，本站文章大多也靠它写完。
+          </p>
+          <p class="project__meta">VS Code 扩展 · 开源</p>
+          <p class="project__links">
+            <a
+              href="https://github.com/telesoho/vscode-markdown-paste-image"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub <span aria-hidden="true">↗</span></a
+            >
+            <a
+              href="https://marketplace.visualstudio.com/items?itemName=telesoho.vscode-markdown-paste-image"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Marketplace <span aria-hidden="true">↗</span></a
+            >
+          </p>
+        </article>
+      </section>
+
+      <section class="section visitor-panel" id="ideas" aria-labelledby="ideas-title">
+        <header class="section-head">
+          <p class="eyebrow">还在想的</p>
+          <h2 id="ideas-title">几件还没落地的事。</h2>
+        </header>
+        <ol class="ideas">
+          <li>
+            <span class="ideas__num">01</span>
+            <div>
+              <h3>歌曲和弦自动识别</h3>
+              <p>从音频里抽出进行，再落成可改的谱。频谱只是入口，不是全部。</p>
+              <p class="chip">想法 · 信号 / 机器学习</p>
+            </div>
+          </li>
+          <li>
+            <span class="ideas__num">02</span>
+            <div>
+              <h3>Down</h3>
+              <p>Down your phone. Up your focus. 把手机扣下，把注意力收回来——还在设计里。</p>
+              <p class="chip">想法 · 注意力</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section visitor-panel" id="about" aria-labelledby="about-title">
+        <header class="section-head">
+          <p class="eyebrow">关于</p>
+          <h2 id="about-title">一个人。<br />没有单一方向。</h2>
+        </header>
+        <div class="about-grid">
+          <p>
+            写过书，教过书，现在要帮自己打工。
+          </p>
+          <blockquote>
+            <p>「活到老，学到老，传递知识」</p>
+            <footer>Telesoho Studio · 索合工坊</footer>
+          </blockquote>
+        </div>
+        <p class="project__links">
+          <a href="https://blog.telesoho.com" target="_blank" rel="noopener noreferrer"
+            >去博客读更长的话 <span aria-hidden="true">↗</span></a
+          >
+          <a href="mailto:telesoho@gmail.com">写信 <span aria-hidden="true">↗</span></a>
+        </p>
+      </section>
+
+      <!-- Engineering panels -->
+      <section class="section engineering-panel" id="eng-intro" aria-labelledby="eng-intro-title">
+        <header class="section-head">
+          <p class="eyebrow">FIG. 00 / 读法</p>
+          <h2 id="eng-intro-title">同一世界。<br />另一种入口。</h2>
+          <p class="section-lead">
+            下面是教学用的缩小模型：公式、伪代码和可点的实验。它们解释意图与边界，不是完整产品源码的镜像。
+          </p>
+        </header>
+      </section>
+
+      <section class="section engineering-panel" id="eng-fft" aria-labelledby="eng-fft-title">
+        <header class="section-head">
+          <p class="eyebrow">01 / 吉他兔 · 离散频谱</p>
+          <h2 id="eng-fft-title">一段信号。<br />一排频点。</h2>
+          <p class="section-lead">
+            音频特征落在频域。下面用 2017 年笔记里的合成信号：256 点、采样率 256 Hz，直流与 50 Hz、75 Hz 应落在第 1、51、76 个频点（从 0 起算的索引）。这是 DFT 教学示意，不是和弦识别器。
+          </p>
+        </header>
+
+        <div class="lab" data-lab="fft">
+          <div class="lab__controls">
+            <label>
+              第二谐波频率 f₂（Hz）
+              <input type="range" id="fft-f2" min="40" max="90" step="1" value="50" />
+              <output id="fft-f2-out" for="fft-f2">50</output>
+            </label>
+            <label>
+              第三谐波频率 f₃（Hz）
+              <input type="range" id="fft-f3" min="55" max="110" step="1" value="75" />
+              <output id="fft-f3-out" for="fft-f3">75</output>
+            </label>
+            <button type="button" class="btn-quiet" id="fft-reset">恢复笔记默认</button>
+          </div>
+          <canvas id="fft-canvas" width="960" height="320" role="img" aria-label="时域波形与幅度谱"></canvas>
+          <p class="lab__formula" id="fft-formula">
+            S(t) = 2 + 3 cos(2π·50t − 30°) + 1.5 cos(2π·75t + 90°)
+          </p>
+          <dl class="lab__stats">
+            <div>
+              <dt>采样</dt>
+              <dd>N = 256 · Fs = 256 Hz · Δf = 1 Hz</dd>
+            </div>
+            <div>
+              <dt>预期峰值索引</dt>
+              <dd id="fft-peaks">0 · 50 · 75（频点 1 / 51 / 76）</dd>
+            </div>
+            <div>
+              <dt>边界</dt>
+              <dd>实值 DFT 幅度 · 无窗 · 非实时音频管线</dd>
+            </div>
+          </dl>
+          <pre class="code" tabindex="0"><code>// 示意：离散傅里叶变换幅度
+for k in 0..N/2:
+  X[k] = Σₙ s[n] · exp(-2πi kn / N)
+  mag[k] = |X[k]| / N
+// 索引 k 对应频率 k · Fs / N</code></pre>
+        </div>
+      </section>
+
+      <section class="section engineering-panel" id="eng-reorder" aria-labelledby="eng-reorder-title">
+        <header class="section-head">
+          <p class="eyebrow">02 / 爬来兔 · 状态转移</p>
+          <h2 id="eng-reorder-title">一次拖动。<br />一条命令。</h2>
+          <p class="section-lead">
+            打乱段落再排回去，是对有序列表的状态转移，不是全文编辑器。拖动提出候选；若序列非法则保持上一状态。下面三段请拖回正确顺序。
+          </p>
+        </header>
+
+        <div class="lab" data-lab="reorder">
+          <p class="lab__status" id="reorder-status" aria-live="polite">打乱后的段落 · 拖到正确位置</p>
+          <ul class="reorder-list" id="reorder-list"></ul>
+          <div class="lab__controls">
+            <button type="button" class="btn-quiet" id="reorder-shuffle">再打乱</button>
+            <button type="button" class="btn-quiet" id="reorder-reset">显示答案顺序</button>
+          </div>
+          <p class="lab__formula">(S<sub>t+1</sub>, E<sub>t</sub>) = reduce(S<sub>t</sub>, C<sub>t</sub>)</p>
+          <pre class="code" tabindex="0"><code>candidate = applyMove(durable, command)
+if validPermutation(candidate):
+  durable = candidate
+  publish(effects)
+else:
+  keep(durable)  // 无效移动不改世界</code></pre>
+        </div>
+      </section>
+
+      <section class="section engineering-panel" id="eng-open" aria-labelledby="eng-open-title">
+        <header class="section-head">
+          <p class="eyebrow">还在白板上</p>
+          <h2 id="eng-open-title">仍是开放问题。</h2>
+        </header>
+        <ol class="ideas">
+          <li>
+            <span class="ideas__num">01</span>
+            <div>
+              <h3>和弦识别能否只靠频谱？</h3>
+              <p>音高与音色缠在一起。怎样把进行从幅度峰里拆干净，又留出人工改谱的缝？</p>
+            </div>
+          </li>
+          <li>
+            <span class="ideas__num">02</span>
+            <div>
+              <h3>注意力能否记成可回放的事件？</h3>
+              <p>若每一次「放下手机」都是一条事件，余额和失败能否像账本一样复现？</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section engineering-panel" id="eng-about" aria-labelledby="eng-about-title">
+        <header class="section-head">
+          <p class="eyebrow">立场</p>
+          <h2 id="eng-about-title">把模型<br /><em>写清楚</em>。</h2>
+          <p class="section-lead">
+            状态是什么？哪些量该不变？写入失败、帧卡住、模型到头时，会发生什么？这个模式邀请你检查那些决定。
+          </p>
+        </header>
+        <p class="project__links">
+          <a href="https://blog.telesoho.com" target="_blank" rel="noopener noreferrer"
+            >对照博客里的长文 <span aria-hidden="true">↗</span></a
+          >
+          <button type="button" class="text-link as-button" id="back-to-visitor">回到日常读法</button>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Telesoho Studio · 索合工坊</p>
+      <p>
+        <a href="https://blog.telesoho.com" target="_blank" rel="noopener noreferrer">blog.telesoho.com</a>
+        ·
+        <a href="mailto:telesoho@gmail.com">telesoho@gmail.com</a>
+      </p>
+    </footer>
+
+    <script src="js/mode.js" type="module"></script>
+    <script src="js/fft-lab.js" type="module"></script>
+    <script src="js/reorder-lab.js" type="module"></script>
+  </body>
+</html>
