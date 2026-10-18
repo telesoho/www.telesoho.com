@@ -14,10 +14,15 @@
   const stopBtn = document.getElementById("stop");
   const jianpuBtn = document.getElementById("view-jianpu");
   const staffBtn = document.getElementById("view-staff");
+  const leadBtn = document.getElementById("view-lead");
   const diagramBtn = document.getElementById("diagram-toggle");
+  const PLAY_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.2v9.6l8-4.8z"/></svg>';
+  const PAUSE_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h2.6v10H4zm5.4 0H12v10H9.4z"/></svg>';
 
   editor.setStrings({
     jpLeadKey: "选调",
+    jpLeadMeter: "拍号",
+    jpLeadTempo: "拍速",
     jpCapoAt: "变调夹 {n}品",
     jpOriginalKey: "原调",
   });
@@ -41,8 +46,15 @@
   let total = 0;
   let marks = [];
   let playKey = "";
+  let barKey = "";
   let renderer = null;
+  let sourceAnchors = null;
+  let sourceAnchorKey = "";
+  let sourceScrollShown = null;
+  let sourceScrollAt = 0;
   const voices = [];
+  const SOURCE_ROW_Y_TOL = 18;
+  const SOURCE_SCROLL_TAU = 0.16;
 
   function label(name) {
     return String(name || "").endsWith("m") ? "6=" + name.slice(0, -1) : "1=" + name;
@@ -88,12 +100,47 @@
     stopVoices();
   }
 
+  function setPlayLabel(live) {
+    const on = !!live;
+    playBtn.innerHTML = on ? PAUSE_ICON : PLAY_ICON;
+    playBtn.setAttribute("aria-label", on ? "暂停" : "播放");
+    playBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    playBtn.title = on ? "暂停" : "播放";
+  }
+
+  function pause() {
+    if (!playing && !arming) return;
+    offset = nowPlaying();
+    haltAudio();
+    setPlayLabel(false);
+    paint(offset);
+  }
+
+  function togglePlay() {
+    if (playing || arming) pause();
+    else void play();
+  }
+
   function clearMotion() {
     paper.querySelectorAll(".is-on").forEach((el) => el.classList.remove("is-on"));
   }
 
+  function clearBarOn() {
+    paper.querySelectorAll("rect.bar-on").forEach((el) => el.remove());
+    barKey = "";
+  }
+
+  function clearSourceScroll() {
+    sourceAnchors = null;
+    sourceAnchorKey = "";
+    sourceScrollShown = null;
+    sourceScrollAt = 0;
+  }
+
   function clearPlayhead() {
     clearMotion();
+    clearBarOn();
+    clearSourceScroll();
     playKey = "";
   }
 
@@ -112,15 +159,139 @@
     });
   }
 
-  function follow(node) {
-    if (!node || !node.getBoundingClientRect) return;
-    const box = node.getBoundingClientRect();
-    const frame = paper.getBoundingClientRect();
-    const margin = 48;
-    if (box.bottom > frame.bottom - margin) paper.scrollTop += box.top - (frame.top + margin);
-    else if (box.top < frame.top + 8) paper.scrollTop -= frame.top + 8 - box.top;
-    if (box.right > frame.right - 16) paper.scrollLeft += box.right - (frame.right - 16);
-    else if (box.left < frame.left + 8) paper.scrollLeft -= frame.left + 8 - box.left;
+  function viewBoxOf(svg) {
+    const parts = String(svg.getAttribute("viewBox") || "").trim().split(/[\s,]+/).map(Number);
+    if (parts.length === 4 && parts.every((n) => Number.isFinite(n))) {
+      return { x: parts[0], y: parts[1], w: parts[2], h: parts[3] };
+    }
+    try {
+      const bb = svg.getBBox();
+      return { x: bb.x, y: bb.y, w: bb.width || 1, h: bb.height || 1 };
+    } catch (err) {
+      return { x: 0, y: 0, w: 1, h: 1 };
+    }
+  }
+
+  // Barlines share one path.d of Mx yv-h segments; thick bars sit ~3 units apart.
+  function barXs(svg) {
+    const xs = [];
+    svg.querySelectorAll("path.bW, path.bthW").forEach((path) => {
+      const d = path.getAttribute("d") || "";
+      const re = /M\s*([-\d.]+)[\s,]+[-\d.]+/g;
+      let match;
+      while ((match = re.exec(d))) xs.push(Number(match[1]));
+    });
+    xs.sort((a, b) => a - b);
+    const merged = [];
+    for (const x of xs) {
+      if (!Number.isFinite(x)) continue;
+      if (!merged.length || x - merged[merged.length - 1] > 8) merged.push(x);
+    }
+    return merged;
+  }
+
+  function barSpanFor(node) {
+    const svg = node && node.ownerSVGElement;
+    if (!svg) return null;
+    let box;
+    try { box = node.getBBox(); } catch (err) { return null; }
+    const cx = box.x + box.width / 2;
+    const vb = viewBoxOf(svg);
+    const xs = barXs(svg);
+    if (!xs.length) return { svg: svg, x: vb.x, w: vb.w, y: vb.y, h: vb.h };
+    let left = vb.x;
+    let right = vb.x + vb.w;
+    for (let i = 0; i < xs.length; i++) {
+      if (cx < xs[i]) {
+        right = xs[i];
+        break;
+      }
+      left = xs[i];
+    }
+    const w = Math.max(1, right - left);
+    return { svg: svg, x: left, w: w, y: vb.y, h: vb.h };
+  }
+
+  function paintBar(node) {
+    // Keep the bar while paused/scrubbed mid-piece; clear only when idle at 0 (stop).
+    if (!node || (!playing && !scrubbing && !(offset > 0))) {
+      clearBarOn();
+      return;
+    }
+    const span = barSpanFor(node);
+    if (!span) {
+      clearBarOn();
+      return;
+    }
+    const nextKey = [
+      Array.prototype.indexOf.call(paper.querySelectorAll("svg"), span.svg),
+      span.x.toFixed(1),
+      span.w.toFixed(1),
+    ].join(":");
+    if (nextKey === barKey) return;
+    clearBarOn();
+    barKey = nextKey;
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("class", "bar-on");
+    rect.setAttribute("x", String(span.x));
+    rect.setAttribute("y", String(span.y));
+    rect.setAttribute("width", String(span.w));
+    rect.setAttribute("height", String(span.h));
+    span.svg.insertBefore(rect, span.svg.firstChild);
+  }
+
+  function collectRowAnchors() {
+    if (!paper.getBoundingClientRect) return [];
+    const paperBox = paper.getBoundingClientRect();
+    const scrollTop = paper.scrollTop || 0;
+    const byKey = new Map();
+    for (const el of paper.querySelectorAll("[data-start]")) {
+      if (el.dataset.adorn === "1" || el.dataset.lyric === "1") continue;
+      const voice = el.dataset.voice || "Vocal";
+      byKey.set(voice + ":" + el.dataset.idx + ":" + (el.dataset.slice || "0"), el);
+    }
+    const items = [];
+    for (const mark of marks) {
+      if (!mark || (mark.voice && mark.voice !== "Vocal")) continue;
+      const node = byKey.get((mark.voice || "Vocal") + ":" + mark.index + ":" + mark.slice);
+      if (!node || !node.getBoundingClientRect) continue;
+      const box = node.getBoundingClientRect();
+      items.push({
+        t: mark.start,
+        y: box.top - paperBox.top + scrollTop,
+      });
+    }
+    items.sort((a, b) => a.t - b.t || a.y - b.y);
+    const rows = [];
+    for (const item of items) {
+      const last = rows[rows.length - 1];
+      if (last && Math.abs(item.y - last.y) < SOURCE_ROW_Y_TOL) continue;
+      rows.push({ t: item.t, y: item.y });
+    }
+    return rows;
+  }
+
+  function followSourceScroll(now) {
+    if (!playing || notation === "lead") return;
+    const key = (paper.clientWidth || 0) + "x" + (paper.scrollHeight || 0);
+    if (!sourceAnchors || sourceAnchorKey !== key) {
+      sourceAnchors = collectRowAnchors();
+      sourceAnchorKey = key;
+    }
+    const view = paper.clientHeight || 0;
+    const maxScroll = Math.max(0, (paper.scrollHeight || 0) - view);
+    const target = editor.sourceScrollTop(sourceAnchors, now, view, maxScroll);
+    const nowMs = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+    const dt = sourceScrollShown == null || !sourceScrollAt
+      ? 0
+      : Math.max(0, (nowMs - sourceScrollAt) / 1000);
+    const snap = Math.max(80, view * 0.5);
+    const next = sourceScrollShown == null
+      ? target
+      : editor.easeScrollStep(sourceScrollShown, target, dt, SOURCE_SCROLL_TAU, snap);
+    sourceScrollShown = next;
+    sourceScrollAt = nowMs;
+    paper.scrollTop = next;
   }
 
   function findHit(voice, index, slice, lyric) {
@@ -160,6 +331,12 @@
     seekEl.max = String(total || 0);
     if (!scrubbing) seekEl.value = String(shown);
     seekEl.setAttribute("aria-valuetext", clock(shown));
+    if (playing) followSourceScroll(shown);
+    const followMark = editor.followMark(marks, shown)
+      || editor.cursorAt(marksOf("Vocal"), shown)
+      || editor.cursorAt(marksOf("Ins"), shown);
+    const followNode = nodeFor(followMark);
+    paintBar(followNode);
     const vocalMark = editor.cursorAt(marksOf("Vocal"), shown);
     const insMark = editor.cursorAt(marksOf("Ins"), shown);
     const key = markKey(vocalMark) + "|" + markKey(insMark);
@@ -169,9 +346,6 @@
     glowNote(nodeFor(vocalMark));
     glowNote(lyricFor(vocalMark));
     glowNote(nodeFor(insMark));
-    const followMark = editor.followMark(marks, shown) || vocalMark || insMark;
-    const node = nodeFor(followMark);
-    if (node) follow(node);
   }
 
   function fitDiagramSvg(svg) {
@@ -367,7 +541,9 @@
   function render() {
     jianpuBtn.setAttribute("aria-pressed", notation === "jianpu" ? "true" : "false");
     staffBtn.setAttribute("aria-pressed", notation === "staff" ? "true" : "false");
+    leadBtn.setAttribute("aria-pressed", notation === "lead" ? "true" : "false");
     diagramBtn.setAttribute("aria-pressed", diagramOn ? "true" : "false");
+    paper.classList.toggle("is-lead", notation === "lead");
     if (!abc) {
       paper.textContent = "";
       clearPlayhead();
@@ -387,12 +563,27 @@
       keyEl.innerHTML = names.map((name) => '<option value="' + name + '">' + label(name) + "</option>").join("");
     }
     keyEl.value = selected;
+    paper.innerHTML = "";
+    playKey = "";
+    barKey = "";
+    clearSourceScroll();
+    if (notation === "lead") {
+      const sheet = editor.leadSheet(abc, current && current.title, selected);
+      if (sheet.error) {
+        paper.textContent = "无法生成弹唱谱";
+        return;
+      }
+      const frame = document.createElement("iframe");
+      frame.title = "弹唱谱";
+      frame.srcdoc = editor.leadSheetDocument(sheet);
+      paper.appendChild(frame);
+      paint(playing ? nowPlaying() : offset);
+      return;
+    }
     const view = editor.chordsInKey(abc, selected === info.keyName ? "" : selected);
     const legend = editor.withKeyLegend(view, editor.keyLegend(info.keyName, selected));
     const body = notation === "jianpu" ? editor.jianpuAbcWithDirective(legend) : legend;
     const src = (diagramOn ? editor.diagramDirective("guitar") : "") + body;
-    paper.innerHTML = "";
-    playKey = "";
     if (typeof abc2svg === "undefined" || !abc2svg.Abc) {
       paper.textContent = "简谱模块没有载入。";
       return;
@@ -433,6 +624,7 @@
     haltAudio();
     offset = 0;
     playKey = "";
+    setPlayLabel(false);
     current = entry;
     titleEl.textContent = entry.title;
     history.replaceState(null, "", "#" + encodeURIComponent(entry.id));
@@ -491,6 +683,7 @@
       if (gen === generation) {
         arming = false;
         playing = false;
+        setPlayLabel(false);
       }
       return;
     }
@@ -498,6 +691,7 @@
     if (window.yuePiano.prepare) void window.yuePiano.prepare(ctx);
     arming = false;
     playing = true;
+    setPlayLabel(true);
     offset = at;
     playFrom = at;
     playKey = "";
@@ -522,6 +716,7 @@
         timer = 0;
         stopVoices();
         offset = total;
+        setPlayLabel(false);
         paint(total);
       }
     };
@@ -542,20 +737,22 @@
     offset = at;
     render();
   });
-  playBtn.addEventListener("click", () => { void play(); });
+  playBtn.addEventListener("click", () => { togglePlay(); });
   stopBtn.addEventListener("click", () => {
     haltAudio();
     offset = 0;
-    clearMotion();
     clearPlayhead();
+    setPlayLabel(false);
     paint(0);
   });
   jianpuBtn.addEventListener("click", () => showNotation("jianpu"));
   staffBtn.addEventListener("click", () => showNotation("staff"));
+  leadBtn.addEventListener("click", () => showNotation("lead"));
   seekEl.addEventListener("pointerdown", () => {
     resumeAfterScrub = playing || arming;
     scrubbing = true;
     haltAudio();
+    setPlayLabel(false);
   });
   seekEl.addEventListener("input", () => {
     offset = clampTime(Number(seekEl.value));

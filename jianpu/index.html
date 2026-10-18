@@ -25,6 +25,10 @@
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
+        max-height: calc(100vh - var(--header-h) - 4rem);
+        position: sticky;
+        top: calc(var(--header-h) + 0.75rem);
+        min-height: 0;
       }
       .library__find input {
         font: inherit;
@@ -33,6 +37,7 @@
         border-radius: 8px;
         background: transparent;
         color: inherit;
+        flex: 0 0 auto;
       }
       .library__list {
         list-style: none;
@@ -41,6 +46,9 @@
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
       }
       .library__list button {
         width: 100%;
@@ -55,6 +63,9 @@
       }
       .library__list button[aria-current="true"] {
         background: rgba(30, 77, 92, 0.08);
+      }
+      .library__find #empty {
+        flex: 0 0 auto;
       }
       .library__key {
         display: block;
@@ -115,7 +126,8 @@
         background: transparent;
         color: var(--ink);
       }
-      #view-jianpu {
+      #view-jianpu,
+      #view-lead {
         width: auto;
         padding: 0 0.45rem;
         font-family: var(--font-mono);
@@ -186,6 +198,19 @@
         padding: 1rem 0.75rem 4.5rem;
         box-shadow: 0 10px 30px rgba(28, 36, 48, 0.06);
       }
+      .player__paper.is-lead {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        overflow: hidden;
+      }
+      .player__paper.is-lead iframe {
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+        border: 0;
+        background: #fff;
+      }
       .player__paper svg {
         display: block;
         max-width: 100%;
@@ -197,6 +222,10 @@
       }
       .player__paper svg path,
       .player__paper svg use {
+        pointer-events: none;
+      }
+      .player__paper rect.bar-on {
+        fill: #d6ebff;
         pointer-events: none;
       }
       .player__paper text.fj.is-on,
@@ -265,6 +294,7 @@
             <button type="button" id="view-staff" aria-pressed="false" aria-label="五线谱" title="五线谱">
               <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.2 11.2a2.3 2.3 0 1 0 0 2.6 2.3 2.3 0 0 0 0-2.6zm1.7.4V3.2c0-.4.2-.7.6-.9l4.2-1.8v1.7L8.5 4v7.2a2.4 2.4 0 0 1-1.6.4z"/></svg>
             </button>
+            <button type="button" id="view-lead" aria-pressed="false" aria-label="弹唱谱" title="弹唱谱">弹唱</button>
           </div>
           <label title="选调"><select id="key" aria-label="选调"></select></label>
           <button type="button" class="icon" id="diagram-toggle" aria-pressed="true" aria-label="和弦图" title="和弦图">
