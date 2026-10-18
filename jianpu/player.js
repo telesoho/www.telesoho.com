@@ -607,7 +607,7 @@
     setDiagram(!diagramOn);
   });
 
-  fetch("../scores/index.json")
+  fetch("../scores/index.json?" + Date.now(), { cache: "no-store" })
     .then((response) => response.json())
     .then((entries) => {
       catalog = Array.isArray(entries) ? entries : [];
