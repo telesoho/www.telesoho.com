@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>简谱 — Telesoho Studio</title>
+    <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .library {
+        display: grid;
+        grid-template-columns: minmax(14rem, 22rem) 1fr;
+        gap: 1.5rem;
+        width: min(var(--wide), calc(100% - 2 * var(--space)));
+        margin: 1.5rem auto 3rem;
+      }
+      .library__find {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .library__find input {
+        font: inherit;
+        padding: 0.45rem 0.7rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: transparent;
+        color: inherit;
+      }
+      .library__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .library__list button {
+        width: 100%;
+        text-align: left;
+        font: inherit;
+        padding: 0.45rem 0.6rem;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+      }
+      .library__list button[aria-current="true"] {
+        background: rgba(30, 77, 92, 0.08);
+      }
+      .library__key {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .player__bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem 1rem;
+        margin-bottom: 1rem;
+      }
+      .player__bar select,
+      .player__bar button {
+        font: inherit;
+      }
+      .player__paper {
+        overflow: auto;
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 0.5rem;
+      }
+      .player__paper svg {
+        max-width: 100%;
+        height: auto;
+      }
+      @media (max-width: 720px) {
+        .library {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#paper">跳到曲谱</a>
+    <header class="site-header">
+      <a class="brand" href="../">
+        <span class="brand__text">
+          <span class="brand__name">Telesoho</span>
+          <span class="brand__studio">Studio</span>
+          <span class="brand__cn">简谱</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="../">首页</a>
+      </nav>
+    </header>
+    <main class="library">
+      <section class="library__find" aria-labelledby="library-title">
+        <h1 id="library-title">简谱库</h1>
+        <input id="query" type="search" placeholder="查找曲名" aria-label="查找曲名" />
+        <ul class="library__list" id="list"></ul>
+        <p id="empty" hidden>没有匹配的简谱。</p>
+      </section>
+      <section aria-labelledby="piece-title">
+        <div class="player__bar">
+          <h2 id="piece-title">选择一首</h2>
+          <button type="button" class="btn-quiet" id="play">播放</button>
+          <button type="button" class="btn-quiet" id="stop">停止</button>
+          <span id="clock">0:00</span>
+          <label>选调 <select id="key"></select></label>
+          <span id="capo"></span>
+        </div>
+        <div class="player__paper" id="paper"></div>
+      </section>
+    </main>
+    <script src="vendor/abc2svg-1.js"></script>
+    <script src="vendor/jianpu-1.js"></script>
+    <script src="vendor/piano.js"></script>
+    <script src="vendor/score_edit.js"></script>
+    <script src="player.js"></script>
+  </body>
+</html>
