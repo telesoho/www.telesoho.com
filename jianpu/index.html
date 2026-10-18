@@ -19,7 +19,7 @@
         grid-template-columns: minmax(14rem, 22rem) 1fr;
         gap: 1.5rem;
         width: min(var(--wide), calc(100% - 2 * var(--space)));
-        margin: 1.5rem auto 3rem;
+        margin: 1.5rem auto 5.5rem;
       }
       .library__find {
         display: flex;
@@ -62,26 +62,160 @@
         font-size: 0.8rem;
         color: var(--muted);
       }
-      .player__bar {
+      .library.is-library-off {
+        grid-template-columns: 1fr;
+      }
+      .library.is-library-off .library__find {
+        display: none;
+      }
+      .player {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - var(--header-h) - 3rem);
+      }
+      .player h2 {
+        margin: 0 0 0.75rem;
+      }
+      .player__dock {
+        position: fixed;
+        left: 50%;
+        bottom: 0.75rem;
+        z-index: 30;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 0.75rem 1rem;
-        margin-bottom: 1rem;
+        justify-content: center;
+        gap: 0.35rem 0.5rem;
+        width: max-content;
+        max-width: calc(100% - 1.5rem);
+        padding: 0.35rem 0.65rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        box-shadow: 0 8px 28px rgba(28, 36, 48, 0.16);
+        transform: translateX(-50%);
       }
-      .player__bar select,
-      .player__bar button {
+      .player__dock .icon,
+      .player__view button,
+      .player__dock select {
         font: inherit;
+        cursor: pointer;
+      }
+      .player__dock .icon,
+      .player__view button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--ink);
+      }
+      #view-jianpu {
+        width: auto;
+        padding: 0 0.45rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+      }
+      .player__dock .icon svg,
+      .player__view button svg {
+        display: block;
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+      .player__play {
+        background: var(--deep);
+        color: var(--paper);
+      }
+      .player__play:hover,
+      .player__play:focus-visible {
+        background: #163e4a;
+      }
+      #library-toggle[aria-pressed="true"],
+      #diagram-toggle[aria-pressed="true"] {
+        background: rgba(30, 77, 92, 0.12);
+        color: var(--deep);
+      }
+      .player__view {
+        display: inline-flex;
+        overflow: hidden;
+        border: 1px solid rgba(28, 36, 48, 0.28);
+        border-radius: 999px;
+        background: #fff;
+      }
+      .player__view button[aria-pressed="true"] {
+        background: var(--deep);
+        color: var(--paper);
+      }
+      .player__dock select {
+        padding: 0.2rem 0.35rem;
+        border: 1px solid rgba(28, 36, 48, 0.55);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+      }
+      .player__dock select:hover,
+      .player__dock select:focus-visible {
+        border-color: var(--deep);
+      }
+      #clock {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      #seek {
+        flex: 0 0 8rem;
+        width: 8rem;
+        accent-color: var(--deep);
       }
       .player__paper {
+        flex: 1;
         overflow: auto;
+        max-height: calc(100vh - var(--header-h) - 5rem);
         background: #fff;
         border-radius: var(--radius);
-        padding: 0.5rem;
+        padding: 1rem 0.75rem 4.5rem;
+        box-shadow: 0 10px 30px rgba(28, 36, 48, 0.06);
       }
       .player__paper svg {
+        display: block;
         max-width: 100%;
         height: auto;
+        margin: 0 auto;
+      }
+      .player__paper [data-start] {
+        cursor: pointer;
+      }
+      .player__paper svg path,
+      .player__paper svg use {
+        pointer-events: none;
+      }
+      .player__paper text.fj.is-on,
+      .player__paper text.jacc.is-on,
+      .player__paper text[data-adorn].is-on,
+      .player__paper text[data-lyric].is-on,
+      .player__paper rect.hit.is-on {
+        fill: #c9a227;
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: note-pulse 0.48s ease-out 1;
+      }
+      .player__paper rect.hit.is-on {
+        fill: rgba(201, 162, 39, 0.35);
+      }
+      @keyframes note-pulse {
+        0% { transform: scale(1); }
+        35% { transform: scale(1.32); }
+        100% { transform: scale(1); }
       }
       @media (max-width: 720px) {
         .library {
@@ -106,25 +240,42 @@
     </header>
     <main class="library">
       <section class="library__find" aria-labelledby="library-title">
-        <h1 id="library-title">简谱库</h1>
+        <h1 id="library-title">曲谱库</h1>
         <input id="query" type="search" placeholder="查找曲名" aria-label="查找曲名" />
         <ul class="library__list" id="list"></ul>
-        <p id="empty" hidden>没有匹配的简谱。</p>
+        <p id="empty" hidden>没有匹配的曲谱。</p>
       </section>
-      <section aria-labelledby="piece-title">
-        <div class="player__bar">
-          <h2 id="piece-title">选择一首</h2>
-          <button type="button" class="btn-quiet" id="play">播放</button>
-          <button type="button" class="btn-quiet" id="stop">停止</button>
-          <span id="clock">0:00</span>
-          <label>选调 <select id="key"></select></label>
-          <span id="capo"></span>
-        </div>
+      <section class="player" aria-labelledby="piece-title">
+        <h2 id="piece-title">选择一首</h2>
         <div class="player__paper" id="paper"></div>
+        <div class="player__dock" role="toolbar" aria-label="播放">
+          <button type="button" class="icon" id="library-toggle" aria-pressed="true" aria-label="简谱库" title="简谱库">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 1.5a5 5 0 0 1 3.96 8.05l3.25 3.24-.71.71-3.24-3.25A5 5 0 1 1 6.5 1.5zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg>
+          </button>
+          <button type="button" class="icon player__play" id="play" aria-label="播放" title="播放">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.2v9.6l8-4.8z"/></svg>
+          </button>
+          <button type="button" class="icon player__stop" id="stop" aria-label="停止" title="停止">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4h8v8H4z"/></svg>
+          </button>
+          <span id="clock">0:00 / 0:00</span>
+          <input id="seek" type="range" min="0" max="0" step="0.01" value="0" aria-label="播放位置" />
+          <div class="player__view" role="group" aria-label="谱面">
+            <button type="button" id="view-jianpu" aria-pressed="true" aria-label="简谱" title="简谱">123</button>
+            <button type="button" id="view-staff" aria-pressed="false" aria-label="五线谱" title="五线谱">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.2 11.2a2.3 2.3 0 1 0 0 2.6 2.3 2.3 0 0 0 0-2.6zm1.7.4V3.2c0-.4.2-.7.6-.9l4.2-1.8v1.7L8.5 4v7.2a2.4 2.4 0 0 1-1.6.4z"/></svg>
+            </button>
+          </div>
+          <label title="选调"><select id="key" aria-label="选调"></select></label>
+          <button type="button" class="icon" id="diagram-toggle" aria-pressed="true" aria-label="和弦图" title="和弦图">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 .8h1v14.8H1zM3.5 .8h1v14.8h-1zM6 .8h1v14.8H6zM8.5 .8h1v14.8h-1zM11 .8h1v14.8H11zM13.5 .8h1v14.8h-1zM1 .8h13.5v1.6H1zM1 6h13.5v.8H1zM1 10.4h13.5v.8H1zM1 14.8h13.5v.8H1zM2.8 13a1.2 1.2 0 1 1 2.4 0 1.2 1.2 0 1 1-2.4 0M5.3 8.6a1.2 1.2 0 1 1 2.4 0 1.2 1.2 0 1 1-2.4 0M10.3 4.2a1.2 1.2 0 1 1 2.4 0 1.2 1.2 0 1 1-2.4 0"/></svg>
+          </button>
+        </div>
       </section>
     </main>
     <script src="vendor/abc2svg-1.js"></script>
     <script src="vendor/jianpu-1.js"></script>
+    <script src="vendor/diag-1.js"></script>
     <script src="vendor/piano.js"></script>
     <script src="vendor/score_edit.js"></script>
     <script src="player.js"></script>
