@@ -1,0 +1,173 @@
+X:1
+T:
+M:4/4
+L:1/16
+Q:1/4=85
+V: Vocal clef=treble name="Vocal Melody" snm="Vocal"
+V: Ins clef=treble name="Ins Melody" snm="Inst."
+K:Bm
+% intro
+V: Vocal
+z16 | z16 | "Gmaj7"z16 | "Gmaj7"z16|
+V: Ins
+z16 | z8 z2 b2 b2 a2 | f4 f3 e f a f4 z e | f a e6 z2 b2 b2 a2|
+V: Vocal
+"F#m7"z16 | "Bm"z16 | "Gmaj7"z16 | "Gmaj7"z16|
+V: Ins
+e4 e3 d e a e4 z d | e a f6 z2 b2 b2 a2 | f4 f3 e f a f4 z e | f a e6 z2 b2 b2 a2|
+V: Vocal
+"F#m7"z16 | "Bm"z16|
+V: Ins
+e4 e3 d e a e4 z d | e a f6 z2 b2 b2 f2|
+% verse
+V: Vocal
+"G"z2 f2 f3 B f e f2 f2 e2- | "A7/G"e2 z12 z2 | "F#m7"z2 e2 e3 A e d e2 e2 d2- | "Bm7"d2 z12 z2|
+w: 当 眼 泪 模 糊 了 生 活 * 当 自 我 磨 平 了 轮 廓
+V: Ins
+z16 | z16 | z16 | z16|
+V: Vocal
+"G"z2 f2 f3 B f e f2 f2 e2- | "A7/G"e2 z6 e2 f2 a2 f2- | "F#m7"f6 z8 z2 | "Bm7"z16|
+w: 当 荒 唐 也 只 能 幽 默 * 笑 不 由 我
+V: Ins
+z16 | z16 | z8 e2 f2 a2 f2- | f6 z4 c3 A3|
+V: Vocal
+"G"z2 f2 f3 B f e f2 f2 e2- | "A7/G"e2 z12 z2 | "F#m7"z2 e2 e3 A e d e2 e2 d2- | "Bm7"d c B2 z4 z4 z4|
+w: 当 烟 火 变 成 了 枷 锁 * 当 笑 语 以 外 都 沉 默
+V: Ins
+B2 z12 z2 | z16 | z16 | z8 z4 B c d f|
+V: Vocal
+"G"z2 f2 f3 B f e f2 f2 e2- | "A7/G"e2 z6 e2 d2 c2 B2- | "Bm"B8- B2 z6 | "Bm"z8 z2 b2 b2 a2|
+w: 世 界 是 绚 烂 的 沙 漠 * 蚕 食 花 朵 * * 自 由 是
+V: Ins
+d2 z12 z2 | z16 | z16 | z16|
+% chorus
+V: Vocal
+"Gmaj7"f4 f3 e f a f2 z3 e | "A7/G"f a e2 z6 b2 b2 a2 | "F#m7"e4 e3 d e a e2 z3 d|
+w: 逃 离 着 全 世 界 到 你 身 边 自 由 得 放 掉 整 个 世 界 一
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Bm"e a f2 z4 B2 c2 d2 e2 | "Em7"f3 e3 B4 z4 z A | "A"f3 a3 e4 z2 a3 g | "Dmaj7"f g f12 z2|
+w: 路 荒 野 你 是 我 的 地 平 线 我 只 为 你 放 眼
+V: Ins
+z16 | z16 | z16 | z16|
+V: Vocal
+"Bm7"z8 z2 b2 b2 a2 | "Gmaj7"f4 f3 e f a f2 z3 e | "A7/G"f a e2 z6 c'2 c'2 a2 | "F#m7"e4 e3 d e a e2 z3 c'|
+w: 自 由 是 与 你 浪 迹 的 天 无 惧 危 险 自 由 得 对 世 俗 的 愚 见 不
+V: Ins
+z16 | z16 | z16 | z16|
+V: Vocal
+"Bm"c' d' d'4 z2 B2 c2 d2 e2 | "Em7"f3 e3 B4 z6|
+w: 再 执 念 四 季 日 月 的 更 迭
+V: Ins
+z16 | z16|
+V: Vocal
+"A"B2 f2 a2 c6 z3 A | "Bm"A B B12 z2 | "Bm7"z16|
+w: 都 只 在 你 一 眼 之 间
+V: Ins
+z16 | z12 z2 b2 | z2 a2 z2 c'2 z2 b2 b2 a2|
+% interlude
+V: Vocal
+"Bm7"z16 | "Bm7"z16 | "Bm7"z16 | "Bm7"z16|
+V: Ins
+f2 a2 f2 c2 f2 a2 f2 c2 | f2 a2 f2 c2 f2 a2 b2 a2 | f2 a2 f2 c2 f2 a2 f2 c2 | f2 a2 f2 c2 z8|
+% verse
+V: Vocal
+"Gmaj7"z2 f2 f3 B f e f2 f2 e2- | "A7/G"e2 z12 z2 | "F#m7"z2 e2 e3 A e d e2 e2 d2- | "Bm7"d2 z12 z2|
+w: 而 妆 容 只 有 你 看 破 * 而 伤 口 只 有 你 抚 摸
+V: Ins
+z16 | z16 | z16 | z16|
+V: Vocal
+"Gmaj7"z2 f2 f3 B f e f2 f2 e2- | "A7/G"e2 z6 e2 f2 a2 f2- | "F#m7"f8- f2 z6 | "Bm7"z16|
+w: 而 结 果 只 有 你 淡 泊 * 笑 怒 由 我
+V: Ins
+z16 | z16 | z8 z2 a2 d'2 c'2 | b2 a2 d'2 c'2 b2 a2 d'2 c'2|
+V: Vocal
+"Gmaj7"z2 f2 f3 B f e f2 f2 e2- | "A7/G"e2 z12 z2 | "F#m7"z2 c'2 c'3 a a e f2 f2 e d- | "Bm"d3 z12 z|
+w: 你 是 我 仅 有 的 绳 索 * 拉 住 我 不 让 我 沉 没
+V: Ins
+b2 z12 z2 | z16 | z16 | z16|
+V: Vocal
+"Bm"z2 f2 f3 B f e f2 f2 e2- | "A7/G"e2 z4 z F e2 d2 c2 B2- | "Bm"B12- B2 d2 | "Bm"b2 a b4 z3 b2 b2 a2|
+w: 我 身 在 绚 烂 的 沙 漠 * 而 你 是 挣 脱 * * * * * * 自 由 是
+V: Ins
+z16 | z16 | z16 | z16|
+% chorus
+V: Vocal
+"Gmaj7"f4 f3 e f a f2 z3 e | "A7/G"f a e2 z6 b2 b2 a2 | "F#m7"e4 e3 d e a e2 z3 d|
+w: 逃 离 着 全 世 界 到 你 身 边 自 由 得 放 掉 整 个 世 界 一
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Bm"e a f2 z4 B2 c2 d2 e2 | "Em7"f3 e3 B4 z4 z A | "A"f3 a3 e4 z2 a3 g | "Dmaj7"f g f12 z2|
+w: 路 荒 野 你 是 我 的 地 平 线 我 只 为 你 放 眼
+V: Ins
+z16 | z16 | z16 | z16|
+V: Vocal
+"Bm7"z8 z2 b2 b2 a2 | "Gmaj7"f4 f3 e f a f2 z3 e | "A7/G"f a e2 z6 c'2 c'2 a2 | "F#m7"e4 e3 d e a e2 z3 c'|
+w: 自 由 是 与 你 浪 迹 的 天 无 惧 危 险 自 由 得 对 世 俗 的 愚 见 不
+V: Ins
+z16 | z16 | z16 | z16|
+V: Vocal
+"Bm"c' d' d'4 z2 B2 c2 d2 e2|
+w: 再 执 念 四 季 日 月
+V: Ins
+z16|
+V: Vocal
+M:2/4
+"Bm"f3 e3 B2-|
+w: 的 更 迭
+V: Ins
+M:2/4
+z8|
+V: Vocal
+M:4/4
+"Em7"B2 z e3 B4 z4 z A | "A"f3 a3 e4 z4 z a|
+w: * 都 只 在 你 一 眼 之
+V: Ins
+M:4/4
+z16 | z16|
+% interlude
+V: Vocal
+"Gmaj7"a b b12- b2- | "Gmaj7"b8- b2 z6 | "Bm"z16|
+w: 间
+V: Ins
+z16 | z8 z2 d f B c d f | B c d f B c d f B c d f B c d f|
+V: Vocal
+"Bm"z12 z3 d' | "Gmaj7"a b b12- b2- | "Gmaj7"b a f2 z4 "F#m"z8|
+w: 一 眼 之 间
+V: Ins
+B c d f B c d f B c d f B c d z | z16 | z4 B c d f B c d f B c d f|
+V: Vocal
+"Bm"z16 | "Bm"z8 z2 d'2 d'2 c'2|
+w: 由 是 与
+V: Ins
+B c d f B c d f B c d f B c d f | B z12 z3|
+% chorus
+V: Vocal
+"Gmaj7"b4 b3 a b d' b2 z3 a | "A7/G"b d' c'2 z6 e'2 e'2 d'2 | "F#m7"c'4 c'3 b c' d' c'2 z3 c'|
+w: 你 浪 迹 的 天 * 无 惧 危 险 自 由 得 对 世 俗 的 愚 见 不
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Bm"c' d' d'4 z2 B2 c2 d2 e2 | "Em7"f3 e3 B4 z4 z A | "A"f3 a3 c6 z3 A | "Bm"A B B12 b2|
+w: 再 执 念 四 季 日 月 的 更 迭 都 只 在 你 一 眼 之 间
+V: Ins
+z16 | z16 | z16 | z16|
+V: Vocal
+"Bm"b z12 z3|
+V: Ins
+z8 z2 b2 b2 a2|
+% outro
+V: Vocal
+"Gmaj7"z16 | "A7/G"z16 | "F#m7"z16 | "Bm"z16|
+V: Ins
+f4 f3 e f a f4 z e | f a e6 z2 b2 b2 a2 | e4 e3 d e a e4 z d | e a f6 z2 b2 b2 a2|
+V: Vocal
+"Gmaj7"z16 | "A7/G"z16 | "F#m7"z16 | "Bm"z16|
+V: Ins
+f4 f3 e f a f4 z e | f a e6 z2 b2 b2 a2 | e4 e3 d e a e4 z d | e a f6 z2 b2 b2 a2|
+V: Vocal
+"Bm"z16 | "Bm"z16 | "Bm"z16 | "Bm"z12 z3 z|
+V: Ins
+f16 | z16 | z16 | z16|
