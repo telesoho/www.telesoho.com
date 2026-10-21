@@ -1,0 +1,112 @@
+X:1
+T:
+M:4/4
+L:1/16
+Q:1/4=67
+V: Vocal clef=treble name="Vocal Melody" snm="Vocal"
+V: Ins clef=treble name="Ins Melody" snm="Inst."
+K:Db
+% intro
+V: Vocal
+z4 "Db"z4 "F7"z8 | "Bbm"z16 | "Gb"z8 "Ab"z8 | "Dbsus4"z8 "Db"z8|
+V: Ins
+z4 d2 e2 e2 d2 c2 d2 | e4 f2 d6 z2 B c | d4 f4 e4 z2 d2 | d16|
+% verse
+V: Vocal
+"Db"z2 F F F2 G A- "Ab/C"A2 F2 A2 d2 | "Bbm"e4 d2 d2 z4 "Ab6"z3 d | "Gb"d2 B A B2 z B "Ab"c2 A A3 F2|
+w: 我 要 怎 么 说 - 你 才 能 在 乎 我 这 秋 天 的 风 也 把 你 带 远
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Db"A4 z4 "Gbm"z8 | "Db"z2 F F F2 G2 "Ab/C"B2 F A3 A A | "Bbm"e2 e2 d2 e2 d2 z2 "Abm6"z2 B c|
+w: 了 指 针 一 点 点 的 过 我 们 没 改 变 什 么 这 份
+V: Ins
+z8 a2 g2 d2 e2 | f2 z12 z2 | z16|
+V: Vocal
+"Gb"d2 B B B2 c2 "Eb7/G"d4 B3 d | "Absus4"B2 B z A4 z8|
+w: 寂 寞 也 希 望 你 真 的 懂 我 -
+V: Ins
+z16 | z16|
+% chorus
+V: Vocal
+"Db"f8 "Ab/C"e4 f4 | "Bbm7"d4 z3 f "Abm"g2 f2 "Db7"e2 f2 | "Gb"e2 d2 z2 B2 "Fm7"A2 c d2 z A A|
+w: 要 怎 么 说 你 才 能 那 样 爱 我 给 我 快 乐 烦 忧
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Ebm7"G2 d2 d2 e2 "Ab"e4 z4 | "Db"f8 "Cdim7"e4 "F7"f4 | "Bbm7"d4 z3 f "Abm6"g2 f2 "Db"e2 d d-|
+w: 全 部 离 开 我 你 对 我 说 爱 到 底 是 什 么
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Gb"d2 z3 B B B "Db/F"A2 A2 d f f2 | "Ebm7"g2 f f g2 f2 "Absus4"e4 e4|
+w: - 是 不 是 一 阵 秋 风 吹 进 你 的 - - 心 窝
+V: Ins
+z16 | z8 z4 z4|
+% interlude
+V: Vocal
+"Gbmaj7"z16 | "Gbm(maj7)"z16 | "Fm7"z16 | "Bb7sus4"z8 "Bb7"z8|
+V: Ins
+f2 B2 d2 f A f2 a a4 f | f2 =A2 d2 f2 e6 z2 | z2 a2 c'2 d' e' c'2 a a3 f2 | b6 z f f4 z B e f|
+V: Vocal
+"Ebm7"z4 "Fm7"z4 "Gbmaj7"z8 | "Absus4"z8 "Ab"z8|
+V: Ins
+g2 f g3 d' d'3 b2 d'2 f'2 | a'4 z12|
+% verse
+V: Vocal
+"Db"z2 F F F2 G A- "Ab/C"A2 F2 A2 d2 | "Bbm"e4 d2 d2 B4 "Fm/Ab"A2 B d | "Gb"d2 B A B2 z D "Ab"c2 A2 A2 F A-|
+w: 我 要 怎 么 说 - 你 才 能 在 乎 我 - 这 秋 天 的 风 - - 也 把 你 带 远 了
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Db"A3 z f2 e f "Gbsus2"f z6 z | "Db"z2 F F F2 A2 "Ab/C"B2 F A2 z A A | "Bbm"e2 e2 d2 e d d4 "Ab6"c z B c|
+w: - (带 远 了) - 指 针 一 点 点 的 过 我 们 没 改 变 什 么 - - 这 份
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Gb"d2 B B B2 c d- "Gdim"d2 z2 B3 d | "Absus4"B2 A6- "Ab"A2 z6|
+w: 寂 寞 也 希 望 你 - 真 的 懂 我 -
+V: Ins
+z16 | z16|
+% chorus
+V: Vocal
+"Db"f8 "Ab/C"a4 b4 | "Bbm"b4 z3 f "Abm6"g2 f a b2 a2 | "Gb"b2 b d2 z B2 "Fm7"A2 c d3 A A|
+w: 要 怎 么 做 你 才 能 那 - 样 爱 - 我 给 我 快 乐 烦 忧
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Ebm7"G2 d2 d e3 "Ab"e4 z4 | "Db"f8 "F7"g4 "F7/A"f4 | "Bbm"d4 z3 f "Abm6"g2 f2 "Db"e2 d d-|
+w: 全 部 离 开 我 你 对 我 说 爱 到 底 是 什 么
+V: Ins
+z12 z4 | z16 | z16|
+V: Vocal
+"Gb"d2 z3 g g g "Fm7"f2 f2 g2 a2 | "Ebm7"b2 a b b4 "Ab"a2 a4 z2 | "Db"f4 a4 "F7"c'4 "F7/A"c'2 b b|
+w: - 是 不 是 一 阵 秋 风 吹 进 你 的 心 窝 我 - 不 难 过 -
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Bbm"b4 z2 b c' "Ab6"d'2 c'2 b2 a2 | "Gb"b b2 d2 z B B "Fm7"A2 A d2 f3 | "Ebm7"g2 f2 g2 e2 "Ab"e4 z4|
+w: - 我 的 世 界 只 有 你 一 个 如 果 你 离 开 我 也 要 好 好 过
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Db"f4 d4 "F7"=a4 "F7/A"f f3 | "Bbm"e2 d2 z2 f f "Ab6"g2 f2 "Db"e2 f2 | "Gb"e d2 d2 z B B "Db/F"A2 A d2 f3|
+w: 难 过 - (我 不 难 过) 我 的 世 界 只 有 你 一 个 如 果 你 离 开 我
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Ebm7"g2 f2 g2 e2 "Ab"e8 | "Ab"z16|
+w: 也 要 好 好 过
+V: Ins
+z16 | z16|
+% verse
+V: Vocal
+"Db"z2 F F F2 G A- "Ab/C"A2 F2 A2 d2 | "Bbm"e4 d2 d4 z4 z d | "Gb"d2 B A B2 z2 "Ab"c2 A2 A2 A2|
+w: 我 要 怎 么 说 - 你 才 能 在 乎 我 这 秋 天 的 风 也 把 你 带
+V: Ins
+z16 | z16 | z16|
+V: Vocal
+"Ab"F4 "Dbmaj7"A8 A4- | "Dbmaj7"A3 z12 z|
+w: 远 了
+V: Ins
+z16 | z16|
